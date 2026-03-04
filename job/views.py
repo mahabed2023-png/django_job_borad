@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .models import job
 from .form import ApplyForm , Jobform
+from .filters import JobFilter
 # Create your views here.
 
 
@@ -11,11 +12,14 @@ from .form import ApplyForm , Jobform
 def job_list(request):
     job_list = job.objects.all()
     
+    #Filter
+    myfilter = JobFilter(request.GET, queryset=job_list)
+    job_list = myfilter.qs
     paginator = Paginator(job_list, 3) # Show 3 jobs per page
     page_namber = request.GET.get('page')
     page_obj = paginator.get_page(page_namber)
     
-    context = {'jobs': page_obj}
+    context = {'jobs': page_obj,'myfilter':myfilter}
     return render(request , 'job/job_list.html',context) 
 
 

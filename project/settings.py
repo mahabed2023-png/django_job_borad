@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 import os
 from pathlib import Path
+# import ssl
+# import certifi
+# os.environ['SSL_CERT_FILE'] = certifi.where()
+
+# if os.environ.get('PYTHONHTTPSVERIFY', '') == '':
+#     ssl._create_default_https_context = ssl._create_unverified_context
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,6 +49,9 @@ INSTALLED_APPS = [
     #my App 
     'job',
     'bootstrap4',
+    'contact',
+    'django_filters',
+    "rest_framework",
     
 ]
 
@@ -131,3 +140,11 @@ STATICFILES_DIRS = [
 MEDIA_URL = 'media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' 
+EMAIL_HOST = 'smtp.gmail.com' 
+EMAIL_HOST_USER = 'mah.abed.2023@gmail.com'
+EMAIL_HOST_PASSWORD = 'mmty ennt lzzs sktn'
+EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = False
+EMAIL_PORT = 587 

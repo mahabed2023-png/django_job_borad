@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'contact',
     'django_filters',
     "rest_framework",
+    "blog",
     
 ]
 

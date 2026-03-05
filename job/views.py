@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .models import job
 from .form import ApplyForm , Jobform
 from .filters import JobFilter
+from blog.models import Post
 # Create your views here.
 
 
@@ -15,11 +16,12 @@ def job_list(request):
     #Filter
     myfilter = JobFilter(request.GET, queryset=job_list)
     job_list = myfilter.qs
-    paginator = Paginator(job_list, 3) # Show 3 jobs per page
+    paginator = Paginator(job_list, 4) # Show 3 jobs per page
     page_namber = request.GET.get('page')
     page_obj = paginator.get_page(page_namber)
     
-    context = {'jobs': page_obj,'myfilter':myfilter}
+    blog_posts = Post.objects.all().order_by('-created_at')[:3]
+    context = {'jobs': page_obj, 'myfilter': myfilter, 'blog_posts': blog_posts}
     return render(request , 'job/job_list.html',context) 
 
 
